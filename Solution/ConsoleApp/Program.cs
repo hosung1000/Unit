@@ -26,30 +26,29 @@ namespace ConsoleApp
 
             //데이터 입력처리 부분
             sql = "INSERT INTO Notice2 (nTitle, nContents, mName) VALUES ('4', '5', '6');";
-            int status =  C2.NoneQuery(sql);
+            int status = C2.NoneQuery(sql);
             Console.WriteLine("데이터 삽입 결과 : {0}", status);
 
             //입력한 데이터 PK 가져오기
-            sql = "SELECT max(mNo) as mNo FROM Notice2;";
+            sql = "SELECT max(nNo) as nNo FROM Notice2;";
             sdr = C2.Reader(sql);
-            int mNo = 0;
+            int nNo = 0;
             while (sdr.Read())
             {
-                mNo = Convert.ToInt32(sdr["mNo"]);
+                nNo = Convert.ToInt32(sdr["nNo"]);
             }
             sdr.Close();
-            Console.WriteLine("mNo = {0}", mNo);
+            Console.WriteLine("nNo = {0}", nNo);
 
             //데이터 업데이트 부분
-            sql = string.Format("UPDATE Notice2 SET mName = '테스터2' WHERE mNo = {0};", mNo);
+            sql = string.Format("UPDATE Notice2 SET mName = '테스터2' WHERE nNo = {0};", nNo);
             status = C2.NoneQuery(sql);
             Console.WriteLine("데이터 수정 결과 : {0}", status);
-
+            
             //데이터 업데이트 -> 삭제 부분
-            sql = string.Format("UPDATE Notice2 SET delYn = 'Y' WHERE mNo = {0}" ,mNo);
+            sql = string.Format("UPDATE Notice2 SET delYn = 'Y' WHERE nNo = {0}", nNo);
             status = C2.NoneQuery(sql);
             Console.WriteLine("데이터 삭제 결과 : {0}", status);
-
         }
     }
 }
